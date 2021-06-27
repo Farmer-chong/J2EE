@@ -1,0 +1,241 @@
+{
+	"info": {
+		"_postman_id": "a9d15aae-f0e8-4187-899d-2166adfe4fa9",
+		"name": "SpringDemo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "用户登录接口",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"var data = JSON.parse(responseBody)\r",
+									"console.log(data.data.token)\r",
+									"pm.environment.set(\"jwt\", data.data.token)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{addr}}/auth/login"
+					},
+					"response": []
+				},
+				{
+					"name": "用户注册",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"farmer\",\r\n    \"password\": \"farmer\",\r\n    \"email\": \"farmer-chong@qq.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{addr}}/auth/reg"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "获取用户信息",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwt}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{addr}}/user/getInfo"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Test",
+			"item": [
+				{
+					"name": "TestGetUser",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwt}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{addr}}/test/getUserInfo",
+							"host": [
+								"{{addr}}"
+							],
+							"path": [
+								"test",
+								"getUserInfo"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "123",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "123",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TodoList",
+			"item": [
+				{
+					"name": "设置代办事项",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwt}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"task\": \"to do task!\",\r\n    \"state\": 0,\r\n    \"completed\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{addr}}/todoList/setTodoList"
+					},
+					"response": []
+				},
+				{
+					"name": "获取代办事项信息",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwt}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{addr}}/todoList/getTodoList"
+					},
+					"response": []
+				},
+				{
+					"name": "修改代码事项信息",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwt}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"task\": \"modify task test\",\r\n    \"state\": 1,\r\n    \"completed\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{addr}}/todoList/modifyTask"
+					},
+					"response": []
+				},
+				{
+					"name": "删除代办事项",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{jwt}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"taskId\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{addr}}/todoList/del"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "通过用户名获取todos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{addr}}/guest/getTodos?username=farmer",
+					"host": [
+						"{{addr}}"
+					],
+					"path": [
+						"guest",
+						"getTodos"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "farmer"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
