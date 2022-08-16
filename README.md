@@ -1,4 +1,5 @@
 # 基于SpringBoot的TodoList代办事项清单
+[![State-of-the-art Shitcode](https://img.shields.io/static/v1?label=State-of-the-art&message=Shitcode&color=7B5804)](https://github.com/trekhleb/state-of-the-art-shitcode)
 
 ## Tips
 该项目仅为后端，不涉及前端，前端项目请移步前端仓库。  
